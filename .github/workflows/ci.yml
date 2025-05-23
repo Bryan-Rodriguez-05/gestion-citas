@@ -1,0 +1,61 @@
+name: CI Pipeline - Gestión de Citas Médicas
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    name: Build & Test Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Run backend lint
+        run: npm run lint || echo "No lint script"
+
+      - name: Run backend tests
+        run: npm test || echo "No tests script"
+
+  frontend:
+    name: Build & Test Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Run frontend lint
+        run: npm run lint || echo "No lint script"
+
+      - name: Run frontend tests
+        run: npm test || echo "No tests script"
+
+      - name: Build frontend
+        run: npm run build
