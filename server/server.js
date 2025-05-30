@@ -12,7 +12,7 @@ const authRoutes = require('./routes/authRoutes');
 const medicosRoutes = require('./routes/medicosRoutes');
 const authMiddleware = require('./middlewares/authMiddleware')
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const jwt     = require('jsonwebtoken');
 // Cargar el archivo de configuración de Swagger
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml', 'utf8'));
