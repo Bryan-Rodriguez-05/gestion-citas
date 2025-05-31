@@ -10,6 +10,9 @@ jobs:
   backend:
     name: Build, Test & Deploy Backend
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
 
     steps:
       - name: Checkout code
@@ -22,24 +25,16 @@ jobs:
 
       - name: Install backend dependencies
         run: npm install
-        working-directory: ./server
 
       - name: Run backend lint
         run: npm run lint || echo "No lint script"
-        working-directory: ./server
 
       - name: Run backend tests
         run: npm test || echo "No tests script"
-        working-directory: ./server
 
-      - name: Create deployment package
-        run: |
-          cd server
-          zip -r ../server-package.zip . -x "*.git*" -x "node_modules/*"
-      
       - name: Deploy to Azure Web App (Backend)
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME_BACKEND }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
-          package: ./server-package.zip
+          package: .
