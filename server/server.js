@@ -37,6 +37,11 @@ app.use('/api/medicos', authMiddleware, medicosRoutes);
 
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get('/', (req, res) => {
+  res.send('¡Servidor backend de Gestión de Citas funcionando!');
+});
+
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
