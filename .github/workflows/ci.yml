@@ -35,7 +35,7 @@ jobs:
       - name: Create deployment package
         run: |
           cd server
-          zip -r ../server-package.zip .
+          zip -r ../server-package.zip . -x "*.git*" -x "node_modules/*"
       
       - name: Deploy to Azure Web App (Backend)
         uses: azure/webapps-deploy@v2
