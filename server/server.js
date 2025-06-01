@@ -21,8 +21,6 @@ const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml', 'utf8'));
 app.use(cors());
 app.use(express.json());
 
-
-
 // Rutas
 
 // Rutas públicas
@@ -37,8 +35,6 @@ app.use('/api/medicos', authMiddleware, medicosRoutes);
 
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
