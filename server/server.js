@@ -39,9 +39,7 @@ app.use('/api/medicos', authMiddleware, medicosRoutes);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-app.get('/', (_req, res) => {
-  res.send('Backend API funcionando correctamente');
-});
+
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
